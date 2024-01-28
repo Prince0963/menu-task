@@ -163,5 +163,13 @@ function ztoa(){
   display(menu);
 }
 
+function searchvalue(){
+
+  let search = document.getElementById("search").value;
+  let p = menu.filter(function(value){
+    return value.title.toLowerCase().includes(search.toLowerCase());
+  }) 
+  display(p);
+}
 
 

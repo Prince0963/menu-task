@@ -243,6 +243,22 @@ Menu
   padding-top: 1rem;
 }
 
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #222;
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 10%;
+}
+ 
+
+#btninp{
+  padding: 10px 20px;
+  background-color: #c59d5f;
+  color: black;
+  border-radius: 10px;
+}
 @media screen and (min-width: 768px) {
   .menu-item {
     grid-template-columns: 225px 1fr;
