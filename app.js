@@ -81,8 +81,10 @@ const menu = [
   },
 ];
 
+const cartitem = []; //function addto cart
+
 function display(mydata){
-  let i = mydata.map(function(value){
+  let i = mydata.map(function(value,index){
     return `<article class="menu-item">
     <img src=${value.img} alt="menu item" class="photo" />
     <div class="item-info">
@@ -93,6 +95,7 @@ function display(mydata){
       <p class="item-text">
        ${value.desc}
       </p>
+      <button type="button" class="filter-btn" data-id="all" onclick="addtocart(${index})" >Add To Cart </button>
     </div>
   </article>`
   })
@@ -104,9 +107,18 @@ document.getElementById("menu").innerHTML = i.join("");
 
 display(menu);
 
+let categories = menu.reduce(function(pre,value){
+  if(pre.includes(value.category) == false)
+  {
+    pre.push(value.category)
+  }
+  return pre;
+},[])
 
-let b = menu.map(function(value){
-  return `<button type="button" class="filter-btn" data-id="all" onclick="filtercategory('${value.category}')" >${value.category}</button>`
+categories.push("All");
+
+let b = categories.map(function(value){
+  return `<button type="button" class="filter-btn" data-id="all" onclick="filtercategory('${value}')" >${value}</button>`
 })
 
 document.getElementById("btn").innerHTML = b.join("");
@@ -115,7 +127,7 @@ document.getElementById("btn").innerHTML = b.join("");
 
 function filtercategory(category){
   let finfcategory = menu.filter(function(value){
-    return value.category == category;
+    return value.category == category || category == "All";
   })
 
   display(finfcategory);
@@ -172,4 +184,24 @@ function searchvalue(){
   display(p);
 }
 
+function addtocart(index)
+{
+  const selectedproduct = menu[index];
 
+
+  let productexit = cartitem.find(function(value){
+    return value.item.id == selectedproduct.id;
+  })
+
+  if(!productexit)
+  {
+    cartitem.push({item:selectedproduct,count:1});
+  }
+  else
+  {
+    productexit.count = productexit.count+1;
+  }
+  
+  console.log(cartitem);
+  document.getElementById("count").innerHTML = cartitem.length;
+}
